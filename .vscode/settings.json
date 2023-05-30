@@ -1,0 +1,9 @@
+{
+    "azureFunctions.deploySubpath": ".",
+    "azureFunctions.postDeployTask": "yarn autoclean (functions)",
+    "azureFunctions.projectLanguage": "TypeScript",
+    "azureFunctions.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.projectLanguageModel": 4,
+    "azureFunctions.preDeployTask": "yarn run build (functions)"
+}

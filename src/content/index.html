@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Maria Translator</title>
+        <script>
+          async function translateText() {
+            // Get the table body element
+            const tableBody = document.querySelector('#translatedTable tbody');
+            // Remove all rows from the tbody
+            while (tableBody.firstChild) {
+                tableBody.removeChild(tableBody.firstChild);
+            }
+            
+            const textToTranslate = document.querySelector('#textToTranslate');
+            const extractedText = textToTranslate.value;
+            const selectorLanguages = document.querySelector('#languages');
+            const selectedLang = selectorLanguages.value;
+            const arrayOfText = extractedText.split('\n');
+            for (let i = 0; i < arrayOfText.length; i++) {
+              const host = window.location.host;
+              const url = 'https://' + host + '/api/askDeepL';
+              const payload = {
+                text: arrayOfText[i],
+                target_lang: selectedLang
+              };
+
+              try {
+                const response = await fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                  const responseJSON = await response.json();
+                  const textarea = document.querySelector('#translatedText');
+                  textarea.value += responseJSON.translations[0].text + '\n';
+
+                  responseJSON.translations.forEach(element => {
+                    const newRow = tableBody.insertRow();
+                    const fromLang = newRow.insertCell(0);
+                    const toLang = newRow.insertCell(1);
+                    const translatedText = newRow.insertCell(2);
+
+                    fromLang.textContent = element.detected_source_language;
+                    toLang.textContent = selectedLang;
+                    translatedText.textContent = element.text;
+                  });
+                } else {
+                  throw new Error('Request failed with status ' + response.status);
+                }
+              } catch (error) {
+                console.error(`Translator encountered an error: "${error}"`);
+              }
+            }
+          }
+        </script>
+    </head>
+    <body>
+        <h1>DeepL Translator</h1>
+        <p><label for="textToTranslate">Text to translate:</label></p>
+        <textarea id="textToTranslate" name="textToTranslate" rows="10" cols="150"></textarea>
+        <br>
+        <label for="languages">Translate into:</label>
+        <select name="languages" id="languages">
+          <option value="DE">DE</option>
+          <option value="EN">EN</option>
+        </select>
+        <br>
+        <p><label for="translator">Your translated text:</label></p>
+        <textarea id="translatedText" name="translatedText" rows="10" cols="150"></textarea>
+        <h2><label for="translator">Table of possible translations from AI:</label></h2>
+        <table id="translatedTable">
+          <thead>
+              <tr>
+                  <th>From Language</th>
+                  <th>To Language</th>
+                  <th>Text</th>
+              </tr>
+          </thead>
+          <tbody></tbody>
+      </table>
+        <br>
+        <button onclick="translateText()">Translate</button>
+    </body>
+</html>
