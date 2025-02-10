@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Maria Translator</title>
+        <title>Intelectual Property Office Risk Analysis Tool</title>
         <script>
           async function translateText() {
             // Get the table body element
@@ -58,9 +58,67 @@
             }
           }
         </script>
+        <style>
+          body {
+              font-family: Arial, sans-serif;
+              margin: 20px;
+          }
+          table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 20px;
+          }
+          th, td {
+              border: 1px solid #ddd;
+              padding: 8px;
+              text-align: left;
+          }
+          th {
+              background-color: #f2f2f2;
+          }
+          input[type="text"] {
+              width: 100%;
+              padding: 6px;
+              box-sizing: border-box;
+          }
+      </style>
     </head>
     <body>
-        <h1>DeepL Translator</h1>
+        <h1>Nástroj na zpracování analýzy rizik pro Úřad Průmyslového vlastnictví</h1>
+        <table>
+          <thead>
+              <tr>
+                  <th>Hrozba/Zranitelnost</th>
+                  <th>Popis</th>
+                  <th>Dopad</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>Přerušení poskytování služeb elektronických komunikací nebo dodávek elektrické energie</td>
+                  <td>Jaký dopad má na vaše oddělení tato hrozba/zranitelnost?</td>
+                  <td><input type="text" name="severity1" placeholder="Dopad od 1 (málo) do 4 (kritické)"></td>
+              </tr>
+              <tr>
+                  <td>Vulnerability 1</td>
+                  <td>Description of Vulnerability 1</td>
+                  <td><input type="text" name="severity2" placeholder="Dopad od 1 (málo) do 4 (kritické)"></td>
+              </tr>
+              <tr>
+                  <td>Threat 2</td>
+                  <td>Description of Threat 2</td>
+                  <td><input type="text" name="severity3" placeholder="Dopad od 1 (málo) do 4 (kritické)"></td>
+              </tr>
+              <tr>
+                  <td>Vulnerability 2</td>
+                  <td>Description of Vulnerability 2</td>
+                  <td><input type="text" name="severity4" placeholder="Dopad od 1 (málo) do 4 (kritické)"></td>
+              </tr>
+          </tbody>
+        </table>
+
+
+        <!--
         <p><label for="textToTranslate">Text to translate:</label></p>
         <textarea id="textToTranslate" name="textToTranslate" rows="10" cols="150"></textarea>
         <br>
@@ -82,8 +140,9 @@
               </tr>
           </thead>
           <tbody></tbody>
-      </table>
+        </table>
         <br>
         <button onclick="translateText()">Translate</button>
+        -->
     </body>
 </html>
